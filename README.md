@@ -32,6 +32,5 @@ bash <(curl -s https://raw.githubusercontent.com/pianstore/Pterodactyl-Theme-Aut
 
 _\* di atas adalah os yang saya test, selebihnya bisa di test sendiri._
 
-## Credits 
-- Recode By [ pianstore ](https://github.com/pianstore)
-- Created by [ FOXSTORE ](https://github.com/Foxstoree)
+### CONTACT PIAN STORE <br>
+<a href="https://t.me/PIanstore20" target=”_blank”><img src="https://img.shields.io/static/v1?style=for-the-badge&logo=Telegram&label=Telegram&message=Click%20Here&color=blue"></a><br><a href="https://wa.me/6282291572138" target=”_blank”><img src="https://img.shields.io/static/v1?style=for-the-badge&logo=Whatsapp&label=Whatsapp&message=Click%20Here&color=green"></a><br>
