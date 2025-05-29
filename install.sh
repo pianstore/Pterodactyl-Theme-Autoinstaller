@@ -74,11 +74,6 @@ restart_system() {
     curl -s -X POST $URL -d "chat_id=$CHATID&text=$TEXT&parse_mode=html"
 }
 res1() {
-# Make sure the script runs as root
-if [ "$EUID" -ne 0 ]; then
-  echo "Silakan jalankan script ini sebagai root."
-  exit 1
-fi
 # Display welcome message
 display_welcome() {
   echo -e ""
